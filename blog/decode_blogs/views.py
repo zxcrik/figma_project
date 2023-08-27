@@ -10,7 +10,6 @@ from .forms import *
 
 menu = [
     {'title':'Home', 'url':'decode_blogs:Decode'},
-
 ]
 
 def Home(request):
