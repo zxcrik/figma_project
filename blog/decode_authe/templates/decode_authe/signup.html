@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <link rel="stylesheet" href="{% static 'decode_authe/css/Header.css' %}">
+    <link rel="stylesheet" href="{% static 'decode_authe/css/Signup.css' %}">
+
+</head>
+<body>
+    <header>
+        <h1>Decode Blog</h1>
+        <div class="header-div-1">
+            <input type="search" placeholder="Поиск по блогам">
+            <button id="button-find">
+                <img src="{% static 'decode_blogs/images/search_icon.svg' %}" alt="" id="search_icon">
+                Найти
+            </button> 
+        </div>
+
+        <div class="header-div-2">
+            <button id="button-reg">Регистрация</button>
+            <button id="button-enter">Вход</button>
+        </div>
+    </header>
+    <hr id="hr-line">
+
+    <section class="authe-main">
+        <h1>Регистрация</h1>
+
+        <form action="" method="POST" class="authe-form">
+            {% csrf_token %}
+            
+            {{ form.as_p }}
+            
+            <button type="submit">Зарегистрироваться</button>
+        </form>
+    </section>
+</body>
+</html>
