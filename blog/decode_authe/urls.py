@@ -6,5 +6,6 @@ app_name = 'decode_authe'
 
 urlpatterns = [
     path('signup/',views.SignUpUser.as_view(), name='signup'),
-    # path('entering/',views.EnterUser.as_view(), name='entering')
+    path('signin/',views.SignInUser.as_view() ,name='signin'),
+    path('signout/',views.signout_user , name='signout')
 ]

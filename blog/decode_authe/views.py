@@ -1,6 +1,9 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.views.generic import CreateView
+from django.contrib.auth.views import LoginView
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import logout, login
 from django.urls import reverse_lazy
 from .forms import *
 
@@ -8,14 +11,14 @@ from .forms import *
 menu = [
     {'title':'Home', 'url':'decode_blogs:home'},
     {'title':'Description', 'url':'decode_blogs:category'},
-    {'title':'Sign up', 'url':'decode_authe:signup'},
-    {'title':'Entering', 'url':'decode_authe:entering'}
+    {'title':'Регистрация', 'url':'decode_authe:signup'},
+    {'title':'Вход', 'url':'decode_authe:signin'}
 ]
 
 class SignUpUser(CreateView):
     form_class = SignUpUserForm
     template_name = 'decode_authe/signup.html'
-    success_url = reverse_lazy('decode_blogs:Home')     # Переход после создания продукта #
+    success_url = reverse_lazy('decode_blogs:home')     # Переход после создания продукта #
 
     def get_context_data(self, **kwargs):        
         context = super().get_context_data(**kwargs)
@@ -25,5 +28,22 @@ class SignUpUser(CreateView):
 
         return context
     
-class EnterUer():
-    pass
+class SignInUser(LoginView):
+    form_class = AuthenticationForm
+    template_name = 'decode_authe/signin.html'
+
+
+    def get_context_data(self, **kwargs):        
+        context = super().get_context_data(**kwargs)
+
+        context['title'] = 'Авторизация'
+        context['menu'] = menu
+
+        return context
+    
+    def get_success_url(self):
+        return reverse_lazy('decode_blogs:home')
+
+def signout_user(request):             # Выход из аккаунта  #
+    logout(request)   
+    return redirect('decode_authe:signin')     

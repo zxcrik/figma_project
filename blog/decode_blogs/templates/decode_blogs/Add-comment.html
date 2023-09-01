@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration</title>
-    <link rel="stylesheet" href="{% static 'decode_authe/css/header.css' %}">
-    <link rel="stylesheet" href="{% static 'decode_authe/css/Signup.css' %}">
-
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'decode_blogs/css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'decode_blogs/css/Add-comment.css' %}">
 </head>
 <body>
     <header>
         <h1>Decode Blog</h1>
+
         <div class="header-div-1">
             <input type="search" placeholder="Поиск по блогам">
             <button id="button-find">
@@ -27,16 +27,12 @@
     </header>
     <hr id="hr-line">
 
-    <section class="authe-main">
-        <h1>Регистрация</h1>
-
-        <form action="" method="POST" class="authe-form">
-            {% csrf_token %}
-            
+    <section class="main">
+        <form action="{% url 'decode_blogs:add' %}" method="POST" enctype="multipart/form-data"> 
+            {% csrf_token %}   <!--Специалынй токен -->
             {{ form.as_p }}
-            
-            <button type="submit">Зарегистрироваться</button>
-        </form>
+            <button type="submit">Сохранить</button>
     </section>
+
 </body>
 </html>

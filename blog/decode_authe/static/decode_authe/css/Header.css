@@ -48,8 +48,12 @@ header h1 {
     gap: 15px;
 }
 
-#button-reg {
-    width: 100px;
+#button-reg, #button-reg-2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 120px;
     height: 35px;
     border: rgb(69, 69, 247);
     border-radius: 5px;

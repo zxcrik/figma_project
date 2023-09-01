@@ -4,10 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration</title>
+    <title>Авторизация</title>
+    <link rel="stylesheet" href="{% static 'decode_authe/css/signup.css' %}">
     <link rel="stylesheet" href="{% static 'decode_authe/css/header.css' %}">
-    <link rel="stylesheet" href="{% static 'decode_authe/css/Signup.css' %}">
-
 </head>
 <body>
     <header>
@@ -19,7 +18,7 @@
                 Найти
             </button> 
         </div>
-
+        
         <div class="header-div-2">
             <a href="{% url 'decode_authe:signup'  %}" id="button-reg">Регистрация</a>
             <a href="{% url 'decode_authe:signin'  %}" id="button-reg-2">Авторизация</a>
@@ -27,8 +26,9 @@
     </header>
     <hr id="hr-line">
 
+
     <section class="authe-main">
-        <h1>Регистрация</h1>
+        <h1>Авторизация</h1>
 
         <form action="" method="POST" class="authe-form">
             {% csrf_token %}
@@ -40,3 +40,4 @@
     </section>
 </body>
 </html>
+
