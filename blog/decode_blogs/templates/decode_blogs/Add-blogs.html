@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add comment</title>
+    <title>Add Blog</title>
     <link rel="stylesheet" href="{% static 'decode_blogs/css/header.css' %}">
     <link rel="stylesheet" href="{% static 'decode_blogs/css/add-blogs.css' %}">
 </head>
@@ -19,5 +19,21 @@
             </button> 
         </div>
         
+        <div class="header-div-2">
+            <a href="{% url 'decode_blogs:home' %}" class="button-reg">Home</a>
+            <a href="{% url 'decode_authe:profile' %}" class="button-reg">Show profile</a>
+            <a href="{% url 'decode_authe:signout' %}" class="button-reg">Signout</a>
+        </div>
+
+    </header>
+    <hr id="hr-line">
+
+    <section class="main">
+        <form action="{% url 'decode_blogs:add' %}" method="POST" enctype="multipart/form-data"> 
+            {% csrf_token %}   <!--Специалынй токен -->
+            {{ form.as_p }}
+            <button type="submit">Сохранить</button>
+    </section>
+
 </body>
 </html>

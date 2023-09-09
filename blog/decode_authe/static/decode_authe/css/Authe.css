@@ -7,8 +7,8 @@
 }
 
 .authe-main {
-    min-height: calc(100vh - 80px);
-    display: flex;
+    min-height: calc(60vh - 80px);  
+    display: flex;  
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -16,6 +16,7 @@
 
 .authe-main h1 {
     margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .authe-form {
@@ -62,3 +63,17 @@
 .authe-form > ul {
     display: none;
 }
+
+.blog-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 25px;
+    border-radius: 7%;
+    background-color: rgb(69,69,247);
+    color: white;
+    height: 45px;
+    width: 180px;
+}
+

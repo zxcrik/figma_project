@@ -5,13 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }}</title>
-    <link rel="stylesheet" href="{% static 'decode_blogs/css/Header.css' %}">
+    <link rel="stylesheet" href="{% static 'decode_blogs/css/header.css' %}">
     <link rel="stylesheet" href="{% static 'decode_blogs/css/Home.css' %}">
 </head>
 <body>
     <header>
         <h1>Decode Blog</h1>
-
         <div class="header-div-1">
             <input type="search" placeholder="Поиск по блогам">
             <button id="button-find">
@@ -19,49 +18,52 @@
                 Найти
             </button> 
         </div>
-
+        
         <div class="header-div-2">
-            <a href="{% url 'decode_authe:signup'  %}" id="button-reg">Регистрация</a>
-            <a href="{% url 'decode_authe:signin'  %}" id="button-reg-2">Авторизация</a>
+            <a href="{% url 'decode_authe:profile' %}" class="button-reg">Show profile</a>
+            <a href="{% url 'decode_authe:signout' %}" class="button-reg">Signout</a>  
         </div>
+
     </header>
     <hr id="hr-line">
-    
+
     
     <section class="main">
         <div class="blogs">
             <h2 id="h2-blog">Блоги по программированию </h2>
             <p id="h2-p">Популярные и лучшие публикации по программированию  для <br>начинающих и проффесиональных программистов и IT-cпециалистов</p>
+            <hr>
             
             <div class="comments">
-                {% for c in comments %}
-                    <h2 id="blog-name">{{ c.name }}</h2>
-                    <div class="main-info"> 
-                    {% if с.image %}
-                        <img src="{{ с.image.url }}" alt="" class="product-image">
+                {% for b in blogs %}
+                <div class="main-info"> 
+                    {% if b.image %}
+                    <img src="{{ b.image.url }}" alt="comment-img" class="comment-img">
                     {% endif %}
                 </div>
-                <p id="description">{{ c.description }}</p>
-                <time id="blog-date">{{ c.date }}</time>
-                <a href="{% url 'decode_blogs:category' c.id %}" id="blog-category">{{ c.category }}</a>
-                <hr>
-            {% endfor %}
+                <h2 id="blog-name">{{ b.name }}</h2>
+                    <p id="description">{{ b.description }}</p>
+                    <time id="blog-date">{{ b.date }}</time>
+                    <a href="{% url 'decode_blogs:category' b.id %}" id="blog-category">{{ b.category }}</a>
+                    <a href="{% url 'decode_blogs:comments-review' comment_id=b.id %}">Посмотреть комментарии</a>
+                    <hr>
+                    {% endfor %}
             </div>
             <div class="categories">
                 <h2 id="categories-name">Категории</h2>
                 {% if category_id == 0 %}
-                <a href="{% url 'decode_blogs:home' %}" class="selected-ctgr">Все товары</a>
-            {% else %}
-                <a href="{% url 'decode_blogs:home' %}">Все Блоги</a>
-            {% endif %}
-
-            {% for ctgr in categories %}
-                {% if category_id == ctgr.id %}
-                    <a href="{% url 'decode_blogs:category' ctgr.id %}" class="selected-ctgr">{{ctgr.name}}</a>
+                    <a href="{% url 'decode_blogs:home' %}" class="selected-ctgr">Все товары</a>
                 {% else %}
-                    <a href="{% url 'decode_blogs:category' ctgr.id %}">{{ctgr.name}}</a>
+                    <a href="{% url 'decode_blogs:home' %}">Все Блоги</a>
                 {% endif %}
-            {% endfor %}    
+
+                {% for ctgr in categories %}
+                    {% if category_id == ctgr.id %}
+                        <a href="{% url 'decode_blogs:category' ctgr.id %}" class="selected-ctgr">{{ctgr.name}}</a>
+                    {% else %}
+                        <a href="{% url 'decode_blogs:category' ctgr.id %}">{{ctgr.name}}</a>
+                    {% endif %}
+                {% endfor %}    
             </div>
         </div>
     </section>

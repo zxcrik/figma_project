@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration</title>
     <link rel="stylesheet" href="{% static 'decode_authe/css/header.css' %}">
-    <link rel="stylesheet" href="{% static 'decode_authe/css/Signup.css' %}">
+    <link rel="stylesheet" href="{% static 'decode_authe/css/authe.css' %}">
 
 </head>
 <body>
@@ -19,13 +19,14 @@
                 Найти
             </button> 
         </div>
-
+    
         <div class="header-div-2">
-            <a href="{% url 'decode_authe:signup'  %}" id="button-reg">Регистрация</a>
-            <a href="{% url 'decode_authe:signin'  %}" id="button-reg-2">Авторизация</a>
+            <a href="{% url 'decode_authe:signin' %}" class="button-reg">SignIn</a>
+            <a href="{% url 'decode_authe:signout' %}" class="button-reg">Signout</a>
         </div>
     </header>
     <hr id="hr-line">
+
 
     <section class="authe-main">
         <h1>Регистрация</h1>

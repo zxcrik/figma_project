@@ -48,7 +48,7 @@ header h1 {
     gap: 15px;
 }
 
-#button-reg, #button-reg-2 {
+.button-reg {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -56,11 +56,11 @@ header h1 {
     width: 120px;
     height: 35px;
     border: rgb(69, 69, 247);
-    font-size: 15px;
     border-radius: 5px;
     color: white;
     background-color: rgb(69, 69, 247)
 }
+
 
 #button-enter {
     width: 100px;

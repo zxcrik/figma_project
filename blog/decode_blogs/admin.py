@@ -1,12 +1,16 @@
 from django.contrib import admin
-from .models import Category, Comment
+from .models import Category, Blog, Comment
 
 # Register your models here.
 
-@admin.register(Comment)
-class CommentAdmin(admin.ModelAdmin):
+@admin.register(Blog)
+class BlogAdmin(admin.ModelAdmin):
     list_display = ('name','category','image','description','date')
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name',)
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('user','text', 'date')

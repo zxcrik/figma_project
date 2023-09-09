@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 import datetime
 import uuid
 
@@ -18,7 +19,7 @@ class Category(models.Model):
     def __str__(self) -> str:
         return self.name
     
-class Comment(models.Model):
+class Blog(models.Model):
     name = models.CharField(max_length=50)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
     image = models.ImageField(blank=True, upload_to=uniq_name_upload)
@@ -26,8 +27,14 @@ class Comment(models.Model):
     date = models.DateTimeField(default=datetime.datetime.today())
     
     class Meta:
-        verbose_name = 'Comment'
-        verbose_name_plural = 'Comments'
+        verbose_name = 'Blog'
+        verbose_name_plural = 'Blogs'
 
     def __str__(self) -> str:
         return self.name
+    
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    text = models.TextField(max_length=2000)
+    date = models.DateTimeField(default=datetime.datetime.today())
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE, default=1)

@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Авторизация</title>
+    <link rel="stylesheet" href="{% static 'decode_authe/css/authe.css' %}">
+    <link rel="stylesheet" href="{% static 'decode_authe/css/Header.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Decode Blog</h1>
+        <div class="header-div-1">
+            <input type="search" placeholder="Поиск по блогам">
+            <button id="button-find">
+                <img src="{% static 'decode_blogs/images/search_icon.svg' %}" alt="" id="search_icon">
+                Найти
+            </button> 
+        </div>
+        
+        <div class="header-div-2">
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'decode_blogs:home' %}" class="button-reg">Home</a>
+                <a href="{% url 'decode_authe:signout' %}" class="button-reg">Signout</a>
+            {% else %}
+                <a href="{% url 'decode_authe:signin' %}">SignIn</a>
+            {% endif %}
+        </div>
+    </header>
+    <hr id="hr-line">
+
+    <section class="authe-main">
+        <h1>Профиль</h1>
+        <div class="profile-info">
+            <p>
+                <b>Name:</b>
+                <span>{{ user.first_name }}</span>
+            </p>
+            <p>
+                <b> SurName:</b>
+                <span>{{ user.last_name }}</span>
+            </p>
+            <p>
+                <b>Email:</b>
+                <span>{{ user.email }}</span>
+            </p>
+        </div>
+
+        {% if request.user.is_superuser %}
+            <div class="admin-links">
+                <a href="{% url 'decode_blogs:add' %}" class="blog-button"> Добавить новый блог</a>
+            </div>
+        {% endif %}
+    </section>
+</body>
+</html>
+

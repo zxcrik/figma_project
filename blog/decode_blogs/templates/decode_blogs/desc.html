@@ -11,7 +11,6 @@
 <body>
     <header>
         <h1>Decode Blog</h1>
-
         <div class="header-div-1">
             <input type="search" placeholder="Поиск по блогам">
             <button id="button-find">
@@ -21,35 +20,37 @@
         </div>
 
         <div class="header-div-2">
-            <a href="{% url 'decode_authe:signup'  %}" id="button-reg">Регистрация</a>
-            <a href="{% url 'decode_authe:signin'  %}" id="button-reg-2">Авторизация</a>
+            <a href="{% url 'decode_authe:profile' %}" class="button-reg">Show profile</a>
+            <a href="{% url 'decode_authe:signout' %}" class="button-reg">Exit</a>
         </div>
+
     </header>
     <hr id="hr-line">
+
 
     <section class="main">
         <h1>Описание Блога</h1>
 
         <span class="p-preinfo">
-            <p>Категория: {{ comment.category.name }}</p>
+            <p>Категория: {{ blog.category.name }}</p>
         </span>
 
         <div class="p-details">
             <span>
                 <p><b>Фото:</b></p>
-                <p>{{ comment.image }}</p>
+                <p>{{ blog.image }}</p>
             </span>
             <span>
                 <p><b>Название:</b></p>
-                <p>{{ comment.name }}</p>
+                <p>{{ blog.name }}</p>
             </span>
             <span>
                 <p><b>Описание:</b></p>
-                <p>{{ comment.description }}</p>
+                <p>{{ blog.description }}</p>
             </span>
             <span>
                 <p><b>Дата:</b></p>
-                <p>{{ comment.data }}</p>
+                <p>{{ blog.data }}</p>
             </span>
         </div>
     </section>

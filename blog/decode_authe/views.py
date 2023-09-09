@@ -47,3 +47,13 @@ class SignInUser(LoginView):
 def signout_user(request):             # Выход из аккаунта  #
     logout(request)   
     return redirect('decode_authe:signin')     
+
+def profile(request):
+    if not request.user.is_authenticated:
+        return redirect('decode_authe:signin')
+    
+    data = {
+        'title':'Профиль',
+        'menu':menu
+    }
+    return render(request, 'decode_authe/profile.html', context=data)
