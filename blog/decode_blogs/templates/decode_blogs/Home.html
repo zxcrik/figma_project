@@ -45,7 +45,7 @@
                     <p id="description">{{ b.description }}</p>
                     <time id="blog-date">{{ b.date }}</time>
                     <a href="{% url 'decode_blogs:category' b.id %}" id="blog-category">{{ b.category }}</a>
-                    <a href="{% url 'decode_blogs:comments-review' comment_id=b.id %}">Посмотреть комментарии</a>
+                    <a href="{% url 'decode_blogs:comments-review' comment_id=b.id %}">Посмотреть комментарии</a> # Ошибка здесь, если удалить строку, стораница блог работает #
                     <hr>
                     {% endfor %}
             </div>
