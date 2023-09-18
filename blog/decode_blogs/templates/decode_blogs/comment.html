@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comment review</title>
-    <link rel="stylesheet" href="{% static 'decode_blogs/css/comments.css' %}">
+    <link rel="stylesheet" href="{% static 'decode_blogs/css/Comments.css' %}">
     <link rel="stylesheet" href="{% static 'decode_blogs/css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'decode_blogs/css/Home.css' %}">
 </head>
 <body>
     <header>
@@ -18,18 +19,67 @@
                 Найти
             </button> 
         </div>
+        
+        <div class="header-div-2">
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'decode_blogs:home' %}" class="button-reg">Home</a>
+                <a href="{% url 'decode_authe:signout' %}" class="button-reg">Signout</a>
+            {% else %}
+                <a href="{% url 'decode_authe:signin' %}">SignIn</a>
+            {% endif %}
+        </div>
     </header>
 
     <section class="main">
+        <div class="blogs">
+            <div class="com-blog">
+                <div class="main-info"> 
+                    {% if blog.image %}
+                    <img src="{{ blog.image.url }}" alt="comment-img" class="comment-img">
+                    {% endif %}
+                </div>
+                <h2 id="blog-name">{{ blog.name }}</h2>
+                    <p id="description">{{ blog.description }}</p>
+                    <time id="blog-date">{{ blog.date }}</time>
+                    <a href="" id="blog-category">{{ blog.category }}</a>
+                    <hr>
+            </div>
+        </div>
+        <div class="categories">
+            <h2 id="categories-name">Категории</h2>
+            {% if category_id == 0 %}
+                <a href="{% url 'decode_blogs:home' %}" class="selected-ctgr">Все товары</a>
+            {% else %}
+                <a href="{% url 'decode_blogs:home' %}">Все Блоги</a>
+            {% endif %}
+
+            {% for ctgr in categories %}
+                {% if category_id == ctgr.id %}
+                    <a href="{% url 'decode_blogs:category' ctgr.id %}" class="selected-ctgr">{{ctgr.name}}</a>
+                {% else %}
+                    <a href="{% url 'decode_blogs:category' ctgr.id %}">{{ctgr.name}}</a>
+                {% endif %}
+            {% endfor %}    
+    </section>
+
+    <section class="main-3">
         <div class="comm-details">
             {% for c in comments %}
-                <li>
-                    <p><b>User:</b> {{ c.user }}</p>
-                    <p><b>Text:</b> {{ c.text }}</p>
-                    <p><b>Date:</b> {{ c.date }}</p>
-                </li>
+                <div class="comment">
+                    <div class="comm-detail">
+                        <p id="user">{{ c.user }};</p> 
+                        <p>{{ c.date }}</p>
+                    </div>
+                    <p id="text">{{ c.text }}</p>
+                </div>
+            </div>
             {% endfor %}
-        </div>
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'decode_blogs:cmadd' %}" id="button-com">Добавить комментарий</a>
+            {% else %}
+                <a href="{% url 'decode_authe:signin' %}" id="button-come">SignIn</a>
+            {% endif %}
     </section>
+
 </body>
 </html>

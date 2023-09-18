@@ -13,4 +13,4 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ('user','text', 'date')
+    list_display = ('image','user','text', 'date')

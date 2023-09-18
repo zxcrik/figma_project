@@ -34,7 +34,7 @@
             <p id="h2-p">Популярные и лучшие публикации по программированию  для <br>начинающих и проффесиональных программистов и IT-cпециалистов</p>
             <hr>
             
-            <div class="comments">
+            <div class="com-blog">
                 {% for b in blogs %}
                 <div class="main-info"> 
                     {% if b.image %}
@@ -45,7 +45,7 @@
                     <p id="description">{{ b.description }}</p>
                     <time id="blog-date">{{ b.date }}</time>
                     <a href="{% url 'decode_blogs:category' b.id %}" id="blog-category">{{ b.category }}</a>
-                    <a href="{% url 'decode_blogs:comments-review' comment_id=b.id %}">Посмотреть комментарии</a>
+                    <a href="{% url 'decode_blogs:comments-category' b.id %}" id="blogs-comments">Посмотреть комментарии</a>
                     <hr>
                     {% endfor %}
             </div>

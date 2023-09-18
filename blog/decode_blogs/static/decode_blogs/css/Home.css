@@ -12,6 +12,7 @@
     justify-content: space-between;
     box-sizing: border-box;
     position: relative;
+    height: 650px;
 }
 
 .main-info {
@@ -39,7 +40,7 @@
     align-items: center;
 }
 
-.comments {
+.com-blog {
     display: block;
     justify-content: left;
     align-items: left;
@@ -64,7 +65,7 @@
 
 .comment-img {
     margin-top: 20px;
-    width: 700px;
+    width: 650px;
     height: 400px;
 }
 
@@ -99,4 +100,9 @@
 
 .categories a:hover{
     border-bottom: 2px solid;
+}
+
+#blogs-comments {
+    display: inline-block;
+    margin-left: 20px;
 }

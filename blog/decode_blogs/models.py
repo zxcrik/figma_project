@@ -35,6 +35,7 @@ class Blog(models.Model):
     
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    image = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comment_images')
     text = models.TextField(max_length=2000)
     date = models.DateTimeField(default=datetime.datetime.today())
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE, default=1)
