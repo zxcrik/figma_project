@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'decode_blogs',
     'decode_authe',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -134,3 +135,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/images/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'images')
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDEREE_CLASSES':['rest_framework.renderers.JSONRender',
+                                'rest_framework.renderers.Browsable.APIRenderer'
+                                ]
+}

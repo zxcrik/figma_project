@@ -10,6 +10,8 @@ from django.urls import reverse, reverse_lazy
 from django.http import HttpResponse
 from rest_framework.views import APIView     
 from rest_framework.response import Response 
+from django.views.generic import View
+from .permissions import *
 from .models import *
 from .forms import *
 from .models import *
@@ -79,6 +81,16 @@ class AddBlog(CreateView):
         context['menu'] = menu
 
         return context
+
+class DeleteBlog(View):
+    def get(self,request, blog_id):
+        try:
+            blog = Blog.objects.get(pk=blog_id)
+            blog.delete()
+        except Blog.DoesNotExist:
+            return(f"{blog.name} not found")
+        
+        return redirect(f"{blog.name} was delete ")
 
 class ShowBlog(DetailView):
     model = Blog
@@ -156,21 +168,21 @@ class BlogDetail(DetailView):
         # API ################################
 
 
-class BlogViewSet(ModelViewSet):
+class BlogListAPIView(ListCreateAPIView):
     queryset = Blog.objects.all()
     serializer_class = BlogSerializer
+    permission_classes = (IsAdminOrReadOnly,)    # Класс для пред доступа #
 
-    @action(methods=['get'], detail=False)    # ДЛя блогов  #
-    def blogs(self, request):
-        blogs = Blog.objects.all()
-        return Response([blog.name for blog in blogs])
-    
-    @action(methods=['get'], detail=False)
-    def genre_filter(self, request):
-        categ = Blog.objects.filter(categ_id=self.request.query_params.get('categ_id'))   # Для категорий #
-        serializer = BlogSerializer(Blog, many=True)
-        return Response(serializer.data)
 
+class BlogDetailAPIView(RetrieveUpdateDestroyAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer
+    permission_classes = (IsOwnerOrReadOnly,) 
+
+class CommentDetailAPIView(RetrieveUpdateDestroyAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    permission_classes = (IsOwnerOrReadOnly,) 
 
 
 

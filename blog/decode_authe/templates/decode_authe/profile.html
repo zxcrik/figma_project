@@ -15,7 +15,7 @@
             <input type="search" placeholder="Поиск по блогам">
             <button id="button-find">
                 <img src="{% static 'decode_blogs/images/search_icon.svg' %}" alt="" id="search_icon">
-                Найти
+                Search
             </button> 
         </div>
         
@@ -31,16 +31,23 @@
     <hr id="hr-line">
 
     <section class="authe-main">
-        <h1>Профиль</h1>
+        <h1>Profile</h1>
         <div class="profile-info">
+            <p>
+                <b>Image:</b>
+                <span>{{ user.image }}</span>
+            </p>
+
             <p>
                 <b>Name:</b>
                 <span>{{ user.first_name }}</span>
             </p>
+
             <p>
                 <b> SurName:</b>
                 <span>{{ user.last_name }}</span>
             </p>
+            
             <p>
                 <b>Email:</b>
                 <span>{{ user.email }}</span>

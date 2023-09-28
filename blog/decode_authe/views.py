@@ -4,6 +4,7 @@ from django.views.generic import CreateView
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import logout, login
+from django.views.generic.edit import FormView
 from django.urls import reverse_lazy
 from .forms import *
 
@@ -27,6 +28,23 @@ class SignUpUser(CreateView):
         context['menu'] = menu
 
         return context
+
+# class SignUpUser(FormView):
+#     form_class = SignUpUserForm
+#     template_name = 'decode_authe/signup.html'
+#     success_url = reverse_lazy('decode_blogs:home')     
+
+#     def get_context_data(self, **kwargs):        
+#         context = super().get_context_data(**kwargs)
+
+#         context['title'] = 'Регистрация'
+#         context['menu'] = menu
+#         return context
+
+#     def form_valid(self, form):
+#         user_data = form.cleaned_data
+#         return super().form_valid(form)
+
     
 class SignInUser(LoginView):
     form_class = AuthenticationForm

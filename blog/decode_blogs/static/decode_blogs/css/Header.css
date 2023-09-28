@@ -33,7 +33,8 @@ header h1 {
     border: rgb(69, 69, 247);
     border-radius: 5px;
     color: white;
-    background-color: rgb(69, 69, 247)
+    background-color: rgb(69, 69, 247);
+    font-weight: 500;
 }
 
 #search_icon {
@@ -58,7 +59,8 @@ header h1 {
     border: rgb(69, 69, 247);
     border-radius: 5px;
     color: white;
-    background-color: rgb(69, 69, 247)
+    background-color: rgb(69, 69, 247);
+    font-weight: 500;
 }
 
 

@@ -53,10 +53,12 @@
 .authe-form button {
     padding: 5px;
     box-sizing: border-box;
+    color: yellow;
+    border: 5px solid yellow;
     font-size: 16px;
     font-weight: 700;
     cursor: pointer;
-    background-color: rgb(69,69,247);
+    background-color: rgb(23, 23, 218);
 }
 
 .authe-form .helptext,

@@ -16,7 +16,7 @@
             <input type="search" placeholder="Поиск по блогам">
             <button id="button-find">
                 <img src="{% static 'decode_blogs/images/search_icon.svg' %}" alt="" id="search_icon">
-                Найти
+                Search
             </button> 
         </div>
         
@@ -65,14 +65,14 @@
     <section class="main-3">
         <div class="comm-details">
             {% for c in comments %}
-                <div class="comment">
-                    <div class="comm-detail">
-                        <p id="user">{{ c.user }};</p> 
-                        <p>{{ c.date }}</p>
-                    </div>
-                    <p id="text">{{ c.text }}</p>
+            <div class="comment">
+                <div class="comm-detail">
+                    <p id="user">{{ c.user }};</p> 
+                    <p>{{ c.date }}</p>
                 </div>
+                <p id="text">{{ c.text }}</p>
             </div>
+        </div>
             {% endfor %}
             {% if request.user.is_authenticated %}
                 <a href="{% url 'decode_blogs:cmadd' %}" id="button-com">Добавить комментарий</a>

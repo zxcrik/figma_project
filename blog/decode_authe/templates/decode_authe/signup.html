@@ -16,7 +16,7 @@
             <input type="search" placeholder="Поиск по блогам">
             <button id="button-find">
                 <img src="{% static 'decode_blogs/images/search_icon.svg' %}" alt="" id="search_icon">
-                Найти
+                Search
             </button> 
         </div>
     
@@ -31,11 +31,9 @@
     <section class="authe-main">
         <h1>Регистрация</h1>
 
-        <form action="" method="POST" class="authe-form">
+        <form action="" method="POST" class="authe-form" enctype="multipart/form-data">
             {% csrf_token %}
-            
             {{ form.as_p }}
-            
             <button type="submit">Зарегистрироваться</button>
         </form>
     </section>
