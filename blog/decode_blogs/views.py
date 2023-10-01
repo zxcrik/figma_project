@@ -1,7 +1,7 @@
 from typing import Any, Dict
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.views.generic import ListView, DetailView, CreateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView     
 from rest_framework.viewsets import ModelViewSet  
 from rest_framework.decorators import action 
@@ -14,17 +14,14 @@ from django.views.generic import View
 from .permissions import *
 from .models import *
 from .forms import *
-from .models import *
 from .serializer import *
 
-# Create your views here.
 
 menu = [
     {'title':'Home', 'url':'decode_blogs:home'},
-    {'title':'Description', 'url':'decode_blogs:category'},
+    {'title':'Description', 'url':'decode_blogs:category'},   # Определение заголовков страницы #
     {'title':'Регистрация', 'url':'decode_authe:signup'},
     {'title':'Вход', 'url':'decode_authe:signin'},
-
 ]
 
 def Home(request):
@@ -35,7 +32,7 @@ def Home(request):
         'blogs': Blog.objects.all(),
     }
 
-    return render(request, 'decode_blogs/Home.html', data)
+    return render(request, 'decode_blogs/Home.html',  data)
 
 
 class CategoriesBlog(ListView):
@@ -47,7 +44,7 @@ class CategoriesBlog(ListView):
     def get_context_data(self, **kwargs):        
         context = super().get_context_data(**kwargs)
         
-        
+        # Передача контекстных данных  #
         context['title'] = 'Категории'
         context['menu'] = menu
         context['categories'] = Category.objects.all()
@@ -72,7 +69,7 @@ def site_category(request, category_id):
 class AddBlog(CreateView):
     form_class = BlogForm
     template_name = 'decode_blogs/Add-blogs.html'
-    success_url = reverse_lazy('decode_blogs:home.html')     # Переход после создания продукта #
+    success_url = reverse_lazy('decode_blogs:home.html')     # Переход после создания блога #
 
     def get_context_data(self, **kwargs):        
         context = super().get_context_data(**kwargs)
@@ -82,29 +79,43 @@ class AddBlog(CreateView):
 
         return context
 
-class DeleteBlog(View):
-    def get(self,request, blog_id):
-        try:
-            blog = Blog.objects.get(pk=blog_id)
-            blog.delete()
-        except Blog.DoesNotExist:
-            return(f"{blog.name} not found")
-        
-        return redirect(f"{blog.name} was delete ")
+def delete_blog(request, blog_id):           
+    try:
+        blog = Blog.objects.get(pk=blog_id)
+        blog.delete()
+        return redirect('decode_authe:profile')    # Переход после удаления #
+    except Blog.DoesNotExist:
+        return HttpResponse("Blog DoesNotExist") 
 
-class ShowBlog(DetailView):
-    model = Blog
-    template_name = 'decode_blogs/desc.html'
-    pk_url_kwarg = 'blog_id'       # Вместо primary key #
-    
-    
-    def get_context_data(self, **kwargs):        
-        context = super().get_context_data(**kwargs)
+class EditBlog(UpdateView):
+    model = EditBlog
+    form_class = BlogForm
+    template_name = 'decode_blog/Edit-blog.html'  
+    success_url = reverse_lazy('decode_blog:Home')
 
-        context['title'] = 'Детали Блога'
-        context['menu'] = menu
+    def get_object(self):
+        return EditBlog.objects.get(pk=self.kwargs['pk'])
 
-        return context
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
+
+
+
+class BlogSearchView(View):
+    template_name = 'decode_blogs/search_form.html'
+
+    def get(self, request):
+        form = BlogSearchForm(request.GET)
+        return render(request, self.template_name, {'form': form})     # ! #
+
+    def post(self, request):
+        form = BlogSearchForm(request.POST)
+        if form.is_valid():
+            search_query = form.cleaned_data['search']
+            blogs = Blog.objects.filter(title__icontains=search_query)
+            return render(request, 'search_results.html', {'blogs': blogs, 'query': search_query})
+        return render(request, self.template_name, {'form': form})
 
         # Comments #
 
@@ -130,12 +141,11 @@ class AddComment(LoginRequiredMixin, CreateView):
     
 
 class ShowComment(DetailView):
-    model = Comment  # Изменено на модель Comment, чтобы отображать комментарии
+    model = Comment                     # Изменено на модель Comment, чтобы отображать комментарии
     template_name = 'decode_blogs/comment.html'
     pk_url_kwarg = 'comment_id'
 
     
-
     def get_queryset(self):
         queryset = super().get_queryset()
         if not self.request.user.is_authenticated:
@@ -159,19 +169,19 @@ class BlogDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Обзор блога'
-        context['comments'] = Comment.objects.filter(blog_id=self.kwargs['blog_id'])
+        context['comments'] = Comment.objects.filter(blog_id=self.kwargs['blog_id'])  # Комментарии относящиеся к этому блогу #
         context['categories'] = Category.objects.all()
         context['menu'] = menu
         return context
 
 
-        # API ################################
+                # API #
 
 
 class BlogListAPIView(ListCreateAPIView):
     queryset = Blog.objects.all()
     serializer_class = BlogSerializer
-    permission_classes = (IsAdminOrReadOnly,)    # Класс для пред доступа #
+    permission_classes = (IsAdminOrReadOnly,)    # Класс для предоставления  доступа #
 
 
 class BlogDetailAPIView(RetrieveUpdateDestroyAPIView):
@@ -183,63 +193,5 @@ class CommentDetailAPIView(RetrieveUpdateDestroyAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
     permission_classes = (IsOwnerOrReadOnly,) 
-
-
-
-# class BlogListAPIView(ListCreateAPIView):
-#     queryset = Blog.objects.all()
-#     serializer_class = BlogSerializer        # Передача пареметров #
-
-
-# class BlogDetailAPIView(RetrieveUpdateDestroyAPIView):
-#     queryset = Blog.objects.all()
-#     serializer_class = BlogSerializer
-
-
-# class BlogApiView(APIView):           
-#     def get(self,request):
-#         blog = Blog.objects.all()
-#         return Response({'blog': BlogSerializer(blog, many=True).data})
-    
-#     def post(self, request):
-#         serializer = BlogSerializer(data=request.data)
-#         serializer.is_valid(raise_exception=True)       
-#         serializer.save()
-
-#         return Response({'blog':serializer.data})
-    
-#     def put(self, request, *args, **kwargs):
-#         pk = kwargs.get('pk', None)
-
-#         if not pk:
-#             return Response({'error':'method "Put" not allowed'})
-        
-#         try:
-#             instance = Blog.objects.get(pk=pk)
-
-#         except:
-#             return Response({'error':'Object does not exist'})
-        
-#         serializer = BlogSerializer(data=request.data, instance=instance)
-#         serializer.is_valid(raise_exception=True)        
-#         serializer.save()
-
-#         return Response({'blog': serializer.data})
-    
-#     def delete(self, request, *args, **kwargs):
-#         pk = kwargs.get('pk', None)
-
-#         if not pk:
-#             return Response({'error':'method "delete" not allowed'})
-
-#         try:
-#             instance = Blog.objects.get(pk=pk)
-#             instance.delete()
-
-#         except:
-#             return Response({'error':'Object does not exist'})
-
-#         return Response({'status': 'blog was deleted'})
-
 
 

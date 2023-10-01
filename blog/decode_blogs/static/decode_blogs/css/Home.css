@@ -46,6 +46,15 @@
     align-items: left;
 } 
 
+.blog-review {
+    display: flex;
+    gap: 20px
+}
+
+#blog-date, #blog-category, #blog-comments, #blog-author{
+    margin-right: 40px;
+}
+
 #blog-name {
     margin-top: 40px;
 }
@@ -54,10 +63,6 @@
     margin-top: 20px;
 }
 
-#blog-date, #blog-category{
-    display: inline-block;
-    margin-top: 15px;
-}
 
 #blog-category {
     margin-left: 10px;
@@ -65,7 +70,7 @@
 
 .comment-img {
     margin-top: 20px;
-    width: 650px;
+    width: 500px;
     height: 400px;
 }
 

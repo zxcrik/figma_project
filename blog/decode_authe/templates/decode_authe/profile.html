@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Авторизация</title>
+    <title>Профиль</title>
     <link rel="stylesheet" href="{% static 'decode_authe/css/authe.css' %}">
     <link rel="stylesheet" href="{% static 'decode_authe/css/Header.css' %}">
+
 </head>
 <body>
     <header>
@@ -19,37 +20,49 @@
             </button> 
         </div>
         
+        
         <div class="header-div-2">
-            {% if request.user.is_authenticated %}
-                <a href="{% url 'decode_blogs:home' %}" class="button-reg">Home</a>
-                <a href="{% url 'decode_authe:signout' %}" class="button-reg">Signout</a>
-            {% else %}
-                <a href="{% url 'decode_authe:signin' %}">SignIn</a>
-            {% endif %}
+            <a href="{% url 'decode_blogs:home' %}" class="button-reg">Home</a>
+            <a href="{% url 'decode_authe:signout' %}" class="button-reg">Signout</a>
+            <a href="{% url 'decode_authe:profile'%}"><img src="{{ user.image.url }}" alt="" class="profile-img"></a>
         </div>
     </header>
     <hr id="hr-line">
+    
+    <section class="main">
+        <div class="com-blog">
+            {% for b in blogs %}
+            <div class="main-info"> 
+                {% if b.image %}
+                <img src="{{ b.image.url }}" alt="comment-img" class="comment-img">
+                {% endif %}
+            </div>
+            <h2 id="blog-name">{{ b.name }}</h2>
+            <p id="description">{{ b.description }}</p>
+            <div class="blog-change">
+                <a href="{% url 'decode_blogs:edit' b.id %}" class="blog-button">Изменить блог</a>
+                <a href="{% url 'decode_blogs:delete' b.id %}" class="blog-button">Удалить блог</a>
+            </div>
+            <img src="{% static 'decode_blogs/images/User.png' %}" alt="">
+            <hr>
+            {% endfor %}
+        </div>
+    </section>
 
-    <section class="authe-main">
-        <h1>Profile</h1>
+    <section class="profile-main">
+        <span>
+            <img src="{{ user.image.url }}" alt="" class="profile-img">
+        </span>
         <div class="profile-info">
             <p>
-                <b>Image:</b>
-                <span>{{ user.image }}</span>
-            </p>
-
-            <p>
-                <b>Name:</b>
                 <span>{{ user.first_name }}</span>
             </p>
 
             <p>
-                <b> SurName:</b>
                 <span>{{ user.last_name }}</span>
             </p>
-            
+
             <p>
-                <b>Email:</b>
                 <span>{{ user.email }}</span>
             </p>
         </div>
@@ -57,6 +70,7 @@
         {% if request.user.is_superuser %}
             <div class="admin-links">
                 <a href="{% url 'decode_blogs:add' %}" class="blog-button"> Добавить новый блог</a>
+                
             </div>
         {% endif %}
     </section>

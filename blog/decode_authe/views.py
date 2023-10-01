@@ -6,7 +6,15 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import logout, login
 from django.views.generic.edit import FormView
 from django.urls import reverse_lazy
+from rest_framework.generics import RetrieveAPIView
+from rest_framework.response import Response
+from rest_framework.viewsets import GenericViewSet
+from rest_framework import mixins
+
+from .models import *
 from .forms import *
+from .serializers import *
+from decode_blogs.models import Blog
 
 # Create your views here.
 menu = [
@@ -19,7 +27,7 @@ menu = [
 class SignUpUser(CreateView):
     form_class = SignUpUserForm
     template_name = 'decode_authe/signup.html'
-    success_url = reverse_lazy('decode_blogs:home')     # Переход после создания продукта #
+    success_url = reverse_lazy('decode_blogs:home')     # Переход после создания пользователя #
 
     def get_context_data(self, **kwargs):        
         context = super().get_context_data(**kwargs)
@@ -28,23 +36,6 @@ class SignUpUser(CreateView):
         context['menu'] = menu
 
         return context
-
-# class SignUpUser(FormView):
-#     form_class = SignUpUserForm
-#     template_name = 'decode_authe/signup.html'
-#     success_url = reverse_lazy('decode_blogs:home')     
-
-#     def get_context_data(self, **kwargs):        
-#         context = super().get_context_data(**kwargs)
-
-#         context['title'] = 'Регистрация'
-#         context['menu'] = menu
-#         return context
-
-#     def form_valid(self, form):
-#         user_data = form.cleaned_data
-#         return super().form_valid(form)
-
     
 class SignInUser(LoginView):
     form_class = AuthenticationForm
@@ -62,6 +53,28 @@ class SignInUser(LoginView):
     def get_success_url(self):
         return reverse_lazy('decode_blogs:home')
 
+
+class UserDetailAPIView(RetrieveAPIView):
+    def get_queryset(self):
+        return User.objects.get(id=self.request.user.id)
+    
+class UserViewSet(GenericViewSet, mixins.CreateModelMixin,):
+    def get_queryset(self):
+        if self.action == 'retrieve':
+            return User.objects.get(id=self.request.user.id)
+        return User.objects.all()
+
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return UserCreateSerializer
+        elif self.action == 'retrieve':
+            return UserRetrieveSerializer
+        
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_queryset()
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+
 def signout_user(request):             # Выход из аккаунта  #
     logout(request)   
     return redirect('decode_authe:signin')     
@@ -72,6 +85,7 @@ def profile(request):
     
     data = {
         'title':'Профиль',
-        'menu':menu
+        'menu':menu,
+        'blogs': Blog.objects.all(),
     }
     return render(request, 'decode_authe/profile.html', context=data)

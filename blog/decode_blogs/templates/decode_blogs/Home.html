@@ -5,24 +5,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }}</title>
-    <link rel="stylesheet" href="{% static 'decode_blogs/css/Header.css' %}">
-    <link rel="stylesheet" href="{% static 'decode_blogs/css/Home.css' %}">
+    <link rel="stylesheet" href="{% static 'decode_blogs/css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'decode_blogs/css/home.css' %}">
 </head>
 <body>
     <header>
         <h1>Decode Blog</h1>
         <div class="header-div-1">
-            <input type="search" placeholder="Поиск по блогам">
-            <button id="button-find">
-                <img src="{% static 'decode_blogs/images/search_icon.svg' %}" alt="" id="search_icon">
-                Search
-            </button> 
+            <form method="POST" action="{% url 'decode_blogs:blog-search'  %}" class="form">
+                {% csrf_token %}
+                <input type="search" placeholder="Поиск по блогам">
+                <button id="button-find">
+                    <img src="{% static 'decode_blogs/images/search_icon.svg' %}" alt="" id="search_icon">
+                    Search
+                </button> 
         </div>
+            
+        
+
         
         <div class="header-div-2">
             {% if request.user.is_authenticated %}
-            <a href="{% url 'decode_authe:profile' %}" class="button-reg">Show profile</a>
             <a href="{% url 'decode_authe:signout' %}" class="button-reg">Signout</a>  
+            <a href="{% url 'decode_authe:profile'%}"><img src="{{ user.image.url }}" alt="" id="header-img"></a>
             {% else %}
             <a href="{% url 'decode_authe:signin' %}" class="button-reg">SignIn</a>
             <a href="{% url 'decode_authe:signup' %}" class="button-reg">SignUp</a>
@@ -48,16 +53,21 @@
                 </div>
                 <h2 id="blog-name">{{ b.name }}</h2>
                     <p id="description">{{ b.description }}</p>
-                    <time id="blog-date">{{ b.date }}</time>
-                    <a href="{% url 'decode_blogs:category' b.id %}" id="blog-category">{{ b.category }}</a>
-                    <a href="{% url 'decode_blogs:comments-category' b.id %}" id="blogs-comments">Посмотреть комментарии</a>
+                    <hr>
+                    <div class="blog-review">
+                        <time id="blog-date"><img src="{% static 'decode_blogs/images/Calendar.png' %}" alt="">{{ b.date }}</time>
+                        <a href="{% url 'decode_blogs:category' b.id %}" id="blog-category"><img src="{% static 'decode_blogs/images/Categories.png' %}" alt="">{{ b.category }}</a>
+                        <a href="{% url 'decode_blogs:comments-category' b.id %}"><img src="{% static 'decode_blogs/images/Comment.png' %}" alt="" id="blog-comments"></a>
+                        <img src="{% static 'decode_blogs/images/User.png' %}" alt="" id="blog-author">
+                    </div>
                     <hr>
                     {% endfor %}
             </div>
+
             <div class="categories">
                 <h2 id="categories-name">Категории</h2>
                 {% if category_id == 0 %}
-                    <a href="{% url 'decode_blogs:home' %}" class="selected-ctgr">Все товары</a>
+                    <a href="{% url 'decode_blogs:home' %}" class="selected-ctgr"></a>
                 {% else %}
                     <a href="{% url 'decode_blogs:home' %}">Все Блоги</a>
                 {% endif %}
@@ -68,13 +78,9 @@
                     {% else %}
                         <a href="{% url 'decode_blogs:category' ctgr.id %}">{{ctgr.name}}</a>
                     {% endif %}
-                {% endfor %}    
+                {% endfor %}   
             </div>
         </div>
     </section>
-    {% if user %}
-        {user.name}
-        {user.image}
-    {% endif %}
 </body>
 </html>

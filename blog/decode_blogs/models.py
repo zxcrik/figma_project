@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.conf import settings
 import datetime
 import uuid
 
@@ -25,6 +26,7 @@ class Blog(models.Model):
     image = models.ImageField(blank=True, upload_to=uniq_name_upload)
     description = models.TextField()
     date = models.DateTimeField(default=datetime.datetime.today())
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)     # !  1 #
     
     class Meta:
         verbose_name = 'Blog'
@@ -33,8 +35,25 @@ class Blog(models.Model):
     def __str__(self) -> str:
         return self.name
     
+class EditBlog(models.Model):
+    name = models.CharField(max_length=50)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
+    image = models.ImageField(blank=True, upload_to=uniq_name_upload)
+    description = models.TextField()
+    date = models.DateTimeField(default=datetime.datetime.today())
+
+    class Meta:
+        verbose_name = 'EditBlog'
+        verbose_name_plural = 'BlogsEdit'
+
+    def __str__(self):
+        return self.name
+
+    
 class Comment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     text = models.TextField(max_length=2000)
     date = models.DateTimeField(default=datetime.datetime.today())
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE, default=1)
+
+

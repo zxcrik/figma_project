@@ -20,12 +20,7 @@
         </div>
 
         <div class="header-div-2">
-            {% if request.user.is_authenticated %}
                 <a href="{% url 'decode_authe:signup' %}" class="button-reg">SignUp</a>    
-                <a href="{% url 'decode_authe:profile' %}" class="button-reg">Show profile</a>
-            {% else %}
-                <a href="{% url 'decode_authe:signup' %}" class="button-reg">SignUp</a>
-            {% endif %}
         </div>
     </header>
     <hr id="hr-line">

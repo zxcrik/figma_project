@@ -25,6 +25,15 @@ header h1 {
     height: 35px;
 }
 
+.form {
+    display: flex;
+    align-items: center;
+}
+
+.form input {
+    height: 35px;
+}
+
 #button-find {
     display: flex;
     align-items: center;
@@ -35,6 +44,7 @@ header h1 {
     color: white;
     background-color: rgb(69, 69, 247)
 }
+
 
 #search_icon {
     width: 30px;
@@ -71,3 +81,10 @@ header h1 {
     background-color: rgb(69, 69, 247)
 }
 
+#header-img {
+    width: 80px;
+    height: 60px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    margin-left: 20px;
+}

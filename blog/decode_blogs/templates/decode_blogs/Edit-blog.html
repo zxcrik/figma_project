@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit blog</title>
+    <link rel="stylesheet" href="{% static 'decode_blogs/css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'decode_blogs/css/add-blogs.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Decode Blog</h1>
+        <div class="header-div-1">
+            <form method="POST" action="{% url 'decode_blogs:blog-search'  %}" class="form">
+                {% csrf_token %}
+                <input type="search" placeholder="Поиск по блогам">
+                <button id="button-find">
+                    <img src="{% static 'decode_blogs/images/search_icon.svg' %}" alt="" id="search_icon">
+                    Search
+                </button> 
+        </div>
+                    
+        <div class="header-div-2">
+            {% if request.user.is_authenticated %}
+            <a href="{% url 'decode_authe:signout' %}" class="button-reg">Signout</a>  
+            <a href="{% url 'decode_authe:profile'%}"><img src="{{ user.image.url }}" alt="" id="header-img"></a>
+            {% else %}
+            <a href="{% url 'decode_authe:signin' %}" class="button-reg">SignIn</a>
+            <a href="{% url 'decode_authe:signup' %}" class="button-reg">SignUp</a>
+            {% endif %}
+        </div>
+
+    </header>
+    <hr id="hr-line">
+
+    <section class="main">
+        <form action="{% url 'decode_blogs:edit' %}" method="POST" enctype="multipart/form-data"> 
+            {% csrf_token %} 
+            {{ form.as_p }}
+            <button type="submit">Сохранить</button>
+    </section>
+
+</body>
+</html>

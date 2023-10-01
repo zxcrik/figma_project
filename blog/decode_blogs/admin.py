@@ -5,21 +5,7 @@ from .models import Category, Blog, Comment
 
 @admin.register(Blog)
 class BlogAdmin(admin.ModelAdmin):
-    list_display = ('name','category','image','description','date')
-    list_filter = ('category',)
-
-     
-    actions = ['delete_selected']
-    
-  
-    def has_delete_permission(self, request, obj=None):
-        return True
-
-  
-    def delete_selected(self, request, queryset):
-        queryset.delete()
-
-    delete_selected.short_description = "Удалить выбранные блоги"
+    list_display = ('name','category','image','description','date', 'author')   
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -28,3 +14,4 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
     list_display = ('user','text', 'date')
+
