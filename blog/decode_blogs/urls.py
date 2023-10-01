@@ -9,7 +9,7 @@ urlpatterns = [
     path('add/', views.AddBlog.as_view(), name='add'),
     path('', views.BlogSearchView.as_view(), name='blog-search'), # ! #
     path('delete_blog/<int:blog_id>/', views.delete_blog, name='delete'), 
-    path('edit_blog/', views.EditBlog.as_view(), name='edit'),
+    path('edit_blog/<int:blog_id>/', views.EditBlog.as_view(), name='edit'),
 
 
     path('cmadd/', views.AddComment.as_view(), name='cmadd'),

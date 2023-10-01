@@ -17,7 +17,7 @@ class BlogForm(forms.ModelForm):
 
 class EditBlogForm(forms.ModelForm):
     class Meta:
-        model = EditBlog
+        model = EditBlogModel
         fields = ['name', 'image', 'category', 'description']
 
     def save(self, commit=True):    # Автоматическое сохранение блога #

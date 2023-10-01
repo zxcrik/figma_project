@@ -35,7 +35,7 @@ class Blog(models.Model):
     def __str__(self) -> str:
         return self.name
     
-class EditBlog(models.Model):
+class EditBlogModel(models.Model):
     name = models.CharField(max_length=50)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
     image = models.ImageField(blank=True, upload_to=uniq_name_upload)

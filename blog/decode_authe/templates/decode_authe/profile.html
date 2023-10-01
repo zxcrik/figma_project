@@ -40,7 +40,7 @@
             <h2 id="blog-name">{{ b.name }}</h2>
             <p id="description">{{ b.description }}</p>
             <div class="blog-change">
-                <a href="{% url 'decode_blogs:edit' b.id %}" class="blog-button">Изменить блог</a>
+                <a href="{% url 'decode_blogs:edit' b.id  %}" class="blog-button">Изменить блог</a>
                 <a href="{% url 'decode_blogs:delete' b.id %}" class="blog-button">Удалить блог</a>
             </div>
             <img src="{% static 'decode_blogs/images/User.png' %}" alt="">

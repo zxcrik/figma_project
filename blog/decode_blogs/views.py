@@ -15,6 +15,7 @@ from .permissions import *
 from .models import *
 from .forms import *
 from .serializer import *
+from django.http import Http404
 
 
 menu = [
@@ -88,18 +89,18 @@ def delete_blog(request, blog_id):
         return HttpResponse("Blog DoesNotExist") 
 
 class EditBlog(UpdateView):
-    model = EditBlog
+    model = EditBlogModel
     form_class = BlogForm
     template_name = 'decode_blog/Edit-blog.html'  
-    success_url = reverse_lazy('decode_blog:Home')
-
+    success_url = reverse_lazy('decode_blog:home')
+    
     def get_object(self):
-        return EditBlog.objects.get(pk=self.kwargs['pk'])
+        blog_id = self.kwargs['blog_id']
+        return EditBlogModel.objects.get(pk=blog_id)
 
     def form_valid(self, form):
         form.save()
         return super().form_valid(form)
-
 
 
 class BlogSearchView(View):
