@@ -48,25 +48,12 @@
 
 .blog-review {
     display: flex;
-    gap: 20px
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    margin-top: 30px;
 }
 
-#blog-date, #blog-category, #blog-comments, #blog-author{
-    margin-right: 40px;
-}
-
-#blog-name {
-    margin-top: 40px;
-}
-
-#description {
-    margin-top: 20px;
-}
-
-
-#blog-category {
-    margin-left: 10px;
-}
 
 .comment-img {
     margin-top: 20px;

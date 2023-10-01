@@ -43,7 +43,12 @@
                 <a href="{% url 'decode_blogs:edit' b.id  %}" class="blog-button">Изменить блог</a>
                 <a href="{% url 'decode_blogs:delete' b.id %}" class="blog-button">Удалить блог</a>
             </div>
-            <img src="{% static 'decode_blogs/images/User.png' %}" alt="">
+            <div class="blog-review">
+                <time id="blog-date"><img src="{% static 'decode_blogs/images/Calendar.png' %}" alt="">{{ b.date }}</time>
+                <a href="{% url 'decode_blogs:category' b.id %}"><img src="{% static 'decode_blogs/images/Categories.png' %}" alt="" id="blog-categories">{{ b.category }}</a>
+                <a href="{% url 'decode_blogs:comments-category' b.id %}"><img src="{% static 'decode_blogs/images/Comment.png' %}" alt="" id="blog-comments"></a>
+                <img src="{% static 'decode_blogs/images/User.png' %}" alt="">{{ b.author }}
+            </div>
             <hr>
             {% endfor %}
         </div>

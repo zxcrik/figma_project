@@ -14,6 +14,8 @@ urlpatterns = [
 
     path('cmadd/', views.AddComment.as_view(), name='cmadd'),
     path('testcommentview/<int:blog_id>/', views.BlogDetail.as_view(), name='comments-category'),
+    path('delete_comment/<int:blog_id>/', views.delete_comment, name='delete-comment'), 
+
     
     path('', include('rest_framework.urls')),
     path('', views.BlogListAPIView.as_view()),

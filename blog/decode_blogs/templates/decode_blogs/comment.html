@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comment review</title>
-    <link rel="stylesheet" href="{% static 'decode_blogs/css/Comments.css' %}">
+    <link rel="stylesheet" href="{% static 'decode_blogs/css/comments.css' %}">
     <link rel="stylesheet" href="{% static 'decode_blogs/css/header.css' %}">
     <link rel="stylesheet" href="{% static 'decode_blogs/css/Home.css' %}">
 </head>
@@ -24,6 +24,8 @@
             {% if request.user.is_authenticated %}
                 <a href="{% url 'decode_blogs:home' %}" class="button-reg">Home</a>
                 <a href="{% url 'decode_authe:signout' %}" class="button-reg">Signout</a>
+                <a href="{% url 'decode_authe:profile'%}"><img src="{{ user.image.url }}" alt="" id="header-img"></a>
+
             {% else %}
                 <a href="{% url 'decode_authe:signin' %}">SignIn</a>
             {% endif %}
@@ -40,8 +42,10 @@
                 </div>
                 <h2 id="blog-name">{{ blog.name }}</h2>
                     <p id="description">{{ blog.description }}</p>
-                    <time id="blog-date">{{ blog.date }}</time>
-                    <a href="" id="blog-category">{{ blog.category }}</a>
+                    <time id="blog-date"><img src="{% static 'decode_blogs/images/Calendar.png' %}" alt="">{{ blog.date }}</time>
+                    <a href="{% url 'decode_blogs:category' blog.id %}" id="blog-category"><img src="{% static 'decode_blogs/images/Categories.png' %}" alt="">{{ blog.category }}</a>
+                    <img src="{% static 'decode_blogs/images/User.png' %}" alt="" id="blog-author">{{ blog.author }}
+
                     <hr>
             </div>
         </div>
@@ -71,9 +75,14 @@
                     <p>{{ c.date }}</p>
                 </div>
                 <p id="text">{{ c.text }}</p>
+                <hr id="com-line">
+                {% if request.user.is_staff %}
+                <a href="{% url 'decode_blogs:delete-comment' c.id %}" id="button-com">Удалить комментарий</a>
+                {% endif %}
             </div>
         </div>
             {% endfor %}
+
             {% if request.user.is_authenticated %}
                 <a href="{% url 'decode_blogs:cmadd' %}" id="button-com">Добавить комментарий</a>
             {% else %}

@@ -140,6 +140,14 @@ class AddComment(LoginRequiredMixin, CreateView):
 
         return context
     
+def delete_comment(request, blog_id):           
+    try:
+        comment = Comment.objects.get(pk=blog_id)
+        comment.delete()
+        return redirect('decode_blogs:home')   
+    except Comment.DoesNotExist:
+        return HttpResponse("Comment DoesNotExist") 
+
 
 class ShowComment(DetailView):
     model = Comment                     # Изменено на модель Comment, чтобы отображать комментарии

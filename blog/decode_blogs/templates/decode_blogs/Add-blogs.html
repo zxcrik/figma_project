@@ -21,8 +21,9 @@
         
         <div class="header-div-2">
             <a href="{% url 'decode_blogs:home' %}" class="button-reg">Home</a>
-            <a href="{% url 'decode_authe:profile' %}" class="button-reg">Show profile</a>
             <a href="{% url 'decode_authe:signout' %}" class="button-reg">Signout</a>
+            <a href="{% url 'decode_authe:profile'%}"><img src="{{ user.image.url }}" alt="" id="header-img"></a>
+
         </div>
 
     </header>
