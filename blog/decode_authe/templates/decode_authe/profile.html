@@ -31,7 +31,7 @@
     
     <section class="main">
         <div class="com-blog">
-            {% for b in blogs %}
+            {% for b in user_blogs %}
             <div class="main-info"> 
                 {% if b.image %}
                 <img src="{{ b.image.url }}" alt="comment-img" class="comment-img">
@@ -72,10 +72,9 @@
             </p>
         </div>
 
-        {% if request.user.is_superuser %}
+        {% if request.user.is_authenticated %}
             <div class="admin-links">
-                <a href="{% url 'decode_blogs:add' %}" class="blog-button"> Добавить новый блог</a>
-                
+                <a href="{% url 'decode_blogs:add' %}" class="blog-button"> Добавить новый блог</a>      
             </div>
         {% endif %}
     </section>

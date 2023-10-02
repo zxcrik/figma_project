@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit blog</title>
     <link rel="stylesheet" href="{% static 'decode_blogs/css/header.css' %}">
-    <link rel="stylesheet" href="{% static 'decode_blogs/css/add-blogs.css' %}">
+    <link rel="stylesheet" href="{% static 'decode_blogs/css/Edit-blogs.css' %}">
 </head>
 <body>
     <header>
@@ -33,13 +33,15 @@
 
     </header>
     <hr id="hr-line">
-
+    {% if request.user.is_authenticated %}
     <section class="main">
-        <form action="{% url 'decode_blogs:edit' %}" method="POST" enctype="multipart/form-data"> 
-            {% csrf_token %} 
+        <form class="form" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Сохранить</button>
+            <input type="hidden" name="author_id" value="{{ user.id }}">
+            <button class="button" type="submit">Сохранить</button>
     </section>
+    {% endif %}
 
 </body>
 </html>

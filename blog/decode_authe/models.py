@@ -9,7 +9,7 @@ def uniq_name_upload(instance, filename):
 
 
 # Create your models here.
-class User(AbstractUser):
+class CustomUser(AbstractUser):
     image = models.ImageField(upload_to='avatars', blank=True)
     description = models.TextField(max_length=200)
 

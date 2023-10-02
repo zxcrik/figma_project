@@ -8,45 +8,55 @@
 
 .main {
     padding: 50px 8%;
-    display: flex;
+    display: block;
     justify-content: center;
 }
 
-form {
+.form {
     width: 40%;
     display: flex;
     flex-direction: column;
 }
 
-form p {
+.form p {
     display: flex;
     flex-direction: column;
     margin-bottom: 15px;
 }
 
-form p label {
+.form p label {
     font-size: 14px;
     margin-bottom: 5px;
     font-weight: 700;
 }
 
-form p input,
-form p textarea,
-form p select {
+.form p input,
+.form p textarea,
+.form p select {
     padding: 5px ;
     box-sizing: border-box;
     outline: none;
     font-size: 14px;
 }
 
-form p textarea {
+.form p textarea {
     resize: none;
 }
 
-form button {
+.form button {
     padding:  5px;
     box-sizing: border-box;
     font-size: 16px;
     font-weight: 700px;
     cursor: pointer;
+}
+
+p {
+    height: 0px;
+}
+
+.mn {
+    display: flex;
+    justify-content: center;
+    height: 400px;
 }

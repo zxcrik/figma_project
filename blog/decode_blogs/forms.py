@@ -6,6 +6,7 @@ class BlogForm(forms.ModelForm):
         model = Blog
         fields = ['name', 'category', 'image', 'description', 'date']
         widgets = {
+            'image': forms.FileInput(attrs={'class': 'fieldset button button-yellow input-file form-control'}),
             'description':forms.Textarea(attrs={'rows':5})
         }
         
@@ -13,19 +14,6 @@ class BlogForm(forms.ModelForm):
         author = settings.AUTH_USER_MODEL.objects.get(id=self.data['author_id'])
         self.instance.author = author
         return super().save(commit)
-
-
-class EditBlogForm(forms.ModelForm):
-    class Meta:
-        model = EditBlogModel
-        fields = ['name', 'image', 'category', 'description']
-
-    def save(self, commit=True):    # Автоматическое сохранение блога #
-        blog = super().save(commit=False)
-        if commit:
-            blog.save()
-        return blog
-
 
 
 class CommentForm(forms.ModelForm):

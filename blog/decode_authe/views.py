@@ -82,10 +82,12 @@ def signout_user(request):             # Выход из аккаунта  #
 def profile(request):
     if not request.user.is_authenticated:
         return redirect('decode_authe:signin')
-    
+
+    user_blogs = Blog.objects.filter(author=request.user)
+
     data = {
-        'title':'Профиль',
-        'menu':menu,
-        'blogs': Blog.objects.all(),
+        'title': 'Профиль',
+        'menu': menu,
+        'user_blogs': user_blogs,   # Передаем отфильтрованные блоги
     }
     return render(request, 'decode_authe/profile.html', context=data)

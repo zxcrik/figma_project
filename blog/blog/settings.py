@@ -196,4 +196,4 @@ SIMPLE_JWT = {
     "SLIDING_TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSlidingSerializer",
 }
 
-AUTH_USER_MODEL = 'decode_authe.User'
+AUTH_USER_MODEL = 'decode_authe.CustomUser'

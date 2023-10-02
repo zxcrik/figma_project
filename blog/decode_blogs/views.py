@@ -89,18 +89,24 @@ def delete_blog(request, blog_id):
         return HttpResponse("Blog DoesNotExist") 
 
 class EditBlog(UpdateView):
-    model = EditBlogModel
+    model = Blog
     form_class = BlogForm
-    template_name = 'decode_blog/Edit-blog.html'  
-    success_url = reverse_lazy('decode_blog:home')
+    template_name = 'decode_blogs/Edit-blog.html'  
+    success_url = reverse_lazy('decode_blogs:home')
     
     def get_object(self):
         blog_id = self.kwargs['blog_id']
-        return EditBlogModel.objects.get(pk=blog_id)
+        return Blog.objects.get(pk=blog_id)
 
     def form_valid(self, form):
         form.save()
         return super().form_valid(form)
+    
+def profile(request):
+    user = request.user
+    user_blogs = Blog.objects.filter(author=user)
+
+    return render(request, 'profile.html', {'user_blogs': user_blogs})
 
 
 class BlogSearchView(View):
