@@ -52,7 +52,7 @@
         <div class="categories">
             <h2 id="categories-name">Категории</h2>
             {% if category_id == 0 %}
-                <a href="{% url 'decode_blogs:home' %}" class="selected-ctgr">Все товары</a>
+                <a href="{% url 'decode_blogs:home' %}" class="selected-ctgr">Все Блоги</a>
             {% else %}
                 <a href="{% url 'decode_blogs:home' %}">Все Блоги</a>
             {% endif %}
