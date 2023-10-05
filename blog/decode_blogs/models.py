@@ -35,20 +35,6 @@ class Blog(models.Model):
     def __str__(self) -> str:
         return self.name
     
-# class EditBlogModel(models.Model):
-#     name = models.CharField(max_length=50)
-#     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
-#     image = models.ImageField(blank=True, upload_to=uniq_name_upload)
-#     description = models.TextField()
-#     date = models.DateTimeField(default=datetime.datetime.today())
-
-#     class Meta:
-#         verbose_name = 'EditBlog'
-#         verbose_name_plural = 'BlogsEdit'
-
-#     def __str__(self):
-#         return self.name
-
     
 class Comment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

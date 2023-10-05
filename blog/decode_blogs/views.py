@@ -110,21 +110,16 @@ def profile(request):
 
 
 class BlogSearchView(View):
-    template_name = 'decode_blogs/search_form.html'
-
-    def get(self, request):
-        form = BlogSearchForm(request.GET)
-        return render(request, self.template_name, {'form': form})     # ! #
+    template_name = 'decode_blogs/Home.html'
+    print('abc')
 
     def post(self, request):
         form = BlogSearchForm(request.POST)
         if form.is_valid():
-            search_query = form.cleaned_data['search']
-            blogs = Blog.objects.filter(title__icontains=search_query)
-            return render(request, 'search_results.html', {'blogs': blogs, 'query': search_query})
-        return render(request, self.template_name, {'form': form})
-
-        # Comments #
+            search_query = form.cleaned_data['search']    # Получение данных введенных в форму #
+            blogs = Blog.objects.filter(name__icontains=search_query)  # Поиск записей в Blog  #
+            return render(request, 'decode_blogs/Home.html', {'blogs':blogs, 'query':search_query})
+        return render(request, self.template_name, {'form':form})
 
 class AddComment(LoginRequiredMixin, CreateView):
     form_class = CommentForm

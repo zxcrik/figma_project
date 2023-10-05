@@ -18,16 +18,17 @@
                 <button id="button-find">
                     <img src="{% static 'decode_blogs/images/search_icon.svg' %}" alt="" id="search_icon">
                     Search
-                </button> 
+                </button>
+            </form> 
         </div>
-            
-        
 
         
         <div class="header-div-2">
             {% if request.user.is_authenticated %}
             <a href="{% url 'decode_authe:signout' %}" class="button-reg">Signout</a>  
-            <a href="{% url 'decode_authe:profile'%}"><img src="{{ user.image.url }}" alt="" id="header-img"></a>
+                {% if user.image %}
+                    <a href="{% url 'decode_authe:profile'%}"><img src="{{ user.image.url }}" alt="" id="header-img"></a>
+                {% endif %}
             {% else %}
             <a href="{% url 'decode_authe:signin' %}" class="button-reg">SignIn</a>
             <a href="{% url 'decode_authe:signup' %}" class="button-reg">SignUp</a>
@@ -37,21 +38,32 @@
     </header>
     <hr id="hr-line">
 
+    <!-- Тестовые ссылки -->
+    <a href="{% url 'decode_blogs:blog-search' %}">test</a>   
+    <p href="{% url 'decode_blogs:blog-search' %}">p of test</p>
+    <p href="{% url 'decode_blogs:blog-search' %}">{{ blogs.name }}</p>
+    {% for b in blogs %}
+        {% if search_query == b.name %}
+            {{ b.name }}
+        {% else %}
+            <p>Nothing</p>
+        {% endif %}
+    {% endfor %}
+    <!--  -->
     
     <section class="main">
         <div class="blogs">
             <h2 id="h2-blog">Блоги по программированию </h2>
             <p id="h2-p">Популярные и лучшие публикации по программированию  для <br>начинающих и проффесиональных программистов и IT-cпециалистов</p>
-            <hr>
-            
+            <hr> 
             <div class="com-blog">
                 {% for b in blogs %}
-                <div class="main-info"> 
-                    {% if b.image %}
-                    <img src="{{ b.image.url }}" alt="comment-img" class="comment-img">
-                    {% endif %}
-                </div>
-                <h2 id="blog-name">{{ b.name }}</h2>
+                    <div class="main-info"> 
+                        {% if b.image %}
+                            <img src="{{ b.image.url }}" alt="comment-img" class="comment-img">
+                        {% endif %}
+                    </div>
+                    <h2 id="blog-name" href="{% url 'decode_blogs:blog-search' %}">{{ b.name }}</h2>   <!-- ссылка здесь  -->
                     <p id="description">{{ b.description }}</p>
                     <hr>
                     <div class="blog-review">
@@ -61,9 +73,9 @@
                         <img src="{% static 'decode_blogs/images/User.png' %}" alt="">{{ b.author }}
                     </div>
                     <hr>
-                    {% endfor %}
+                {% endfor %}
             </div>
-
+  
             <div class="categories">
                 <h2 id="categories-name">Категории</h2>
                 {% if category_id == 0 %}

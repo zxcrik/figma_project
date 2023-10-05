@@ -7,7 +7,7 @@ urlpatterns = [
     path('', views.Home, name="home"),
     path('blogs/<int:category_id>/', views.site_category, name='category'),
     path('add/', views.AddBlog.as_view(), name='add'),
-    path('', views.BlogSearchView.as_view(), name='blog-search'), # ! #
+    path('search/', views.BlogSearchView.as_view(), name='blog-search'), # ! #
     path('delete_blog/<int:blog_id>/', views.delete_blog, name='delete'), 
     path('edit_blog/<int:blog_id>/', views.EditBlog.as_view(), name='edit'),
 
