@@ -4,9 +4,13 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 15px;
+    gap: 22px;
 }
 
+
+#description {
+    margin-top: 10px;
+}
 
 .main h1 {
     margin-bottom: 20px;
@@ -53,6 +57,7 @@ p select {
     font-weight: 700;
     cursor: pointer;
     background-color: rgb(23, 23, 218);
+    height: 60px;
 }
 
 .form .helptext,

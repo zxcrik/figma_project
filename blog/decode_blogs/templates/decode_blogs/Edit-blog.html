@@ -6,20 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit blog</title>
     <link rel="stylesheet" href="{% static 'decode_blogs/css/header.css' %}">
-    <link rel="stylesheet" href="{% static 'decode_blogs/css/Edit-blogs.css' %}">
+    <link rel="stylesheet" href="{% static 'decode_blogs/css/Edit-blog.css' %}">
 </head>
 <body>
     <header>
         <h1>Decode Blog</h1>
         <div class="header-div-1">
-            <form method="POST" action="{% url 'decode_blogs:blog-search'  %}" class="form">
+            <form method="POST" action="{% url 'decode_blogs:blog-search'  %}" class="form_1">
                 {% csrf_token %}
-                <input type="search" placeholder="Поиск по блогам">
+                <input type="search" placeholder="Поиск по блогам" name="search">
                 <button id="button-find">
                     <img src="{% static 'decode_blogs/images/search_icon.svg' %}" alt="" id="search_icon">
                     Search
-                </button> 
+                </button>
+            </form> 
         </div>
+
                     
         <div class="header-div-2">
             {% if request.user.is_authenticated %}

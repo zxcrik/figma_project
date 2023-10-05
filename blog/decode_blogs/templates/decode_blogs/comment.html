@@ -13,12 +13,16 @@
     <header>
         <h1>Decode Blog</h1>
         <div class="header-div-1">
-            <input type="search" placeholder="Поиск по блогам">
-            <button id="button-find">
-                <img src="{% static 'decode_blogs/images/search_icon.svg' %}" alt="" id="search_icon">
-                Search
-            </button> 
+            <form method="POST" action="{% url 'decode_blogs:blog-search'  %}" class="form_1">
+                {% csrf_token %}
+                <input type="search" placeholder="Поиск по блогам" name="search">
+                <button id="button-find">
+                    <img src="{% static 'decode_blogs/images/search_icon.svg' %}" alt="" id="search_icon">
+                    Search
+                </button>
+            </form> 
         </div>
+
         
         <div class="header-div-2">
             {% if request.user.is_authenticated %}
@@ -31,6 +35,7 @@
             {% endif %}
         </div>
     </header>
+    <hr>
 
     <section class="main">
         <div class="blogs">
@@ -41,11 +46,12 @@
                     {% endif %}
                 </div>
                 <h2 id="blog-name">{{ blog.name }}</h2>
+                <hr>
                     <p id="description">{{ blog.description }}</p>
+                    <hr>
                     <time id="blog-date"><img src="{% static 'decode_blogs/images/Calendar.png' %}" alt="">{{ blog.date }}</time>
                     <a href="{% url 'decode_blogs:category' blog.id %}" id="blog-category"><img src="{% static 'decode_blogs/images/Categories.png' %}" alt="">{{ blog.category }}</a>
                     <img src="{% static 'decode_blogs/images/User.png' %}" alt="" id="blog-author">{{ blog.author }}
-
                     <hr>
             </div>
         </div>

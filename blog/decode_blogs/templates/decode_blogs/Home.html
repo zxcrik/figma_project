@@ -12,9 +12,9 @@
     <header>
         <h1>Decode Blog</h1>
         <div class="header-div-1">
-            <form method="POST" action="{% url 'decode_blogs:blog-search'  %}" class="form">
+            <form method="POST" action="{% url 'decode_blogs:blog-search'  %}" class="form_1">
                 {% csrf_token %}
-                <input type="search" placeholder="Поиск по блогам">
+                <input type="search" placeholder="Поиск по блогам" name="search">
                 <button id="button-find">
                     <img src="{% static 'decode_blogs/images/search_icon.svg' %}" alt="" id="search_icon">
                     Search
@@ -38,23 +38,11 @@
     </header>
     <hr id="hr-line">
 
-    <!-- Тестовые ссылки -->
-    <a href="{% url 'decode_blogs:blog-search' %}">test</a>   
-    <p href="{% url 'decode_blogs:blog-search' %}">p of test</p>
-    <p href="{% url 'decode_blogs:blog-search' %}">{{ blogs.name }}</p>
-    {% for b in blogs %}
-        {% if search_query == b.name %}
-            {{ b.name }}
-        {% else %}
-            <p>Nothing</p>
-        {% endif %}
-    {% endfor %}
-    <!--  -->
     
     <section class="main">
         <div class="blogs">
             <h2 id="h2-blog">Блоги по программированию </h2>
-            <p id="h2-p">Популярные и лучшие публикации по программированию  для <br>начинающих и проффесиональных программистов и IT-cпециалистов</p>
+            <p id="h2-p">Популярные и лучшие публикации по программированию  для <br>начинающих и профессиональных программистов и IT-cпециалистов</p>
             <hr> 
             <div class="com-blog">
                 {% for b in blogs %}
@@ -62,8 +50,9 @@
                         {% if b.image %}
                             <img src="{{ b.image.url }}" alt="comment-img" class="comment-img">
                         {% endif %}
+                        <h2 id="blog-name" href="{% url 'decode_blogs:blog-search' %}">{{ b.name }}</h2>  
+                        <hr>
                     </div>
-                    <h2 id="blog-name" href="{% url 'decode_blogs:blog-search' %}">{{ b.name }}</h2>   <!-- ссылка здесь  -->
                     <p id="description">{{ b.description }}</p>
                     <hr>
                     <div class="blog-review">

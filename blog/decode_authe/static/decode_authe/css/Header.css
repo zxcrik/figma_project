@@ -20,17 +20,21 @@ header h1 {
 }
 
 
-.header-div-1 {
-    display: flex;
-    height: 35px;
-}
-
 .form {
     display: flex;
     align-items: center;
 }
 
 .form input {
+    height: 35px;
+}
+
+.form_1 {
+    display: flex;
+    align-items: center;
+}
+
+.form_1 input {
     height: 35px;
 }
 
