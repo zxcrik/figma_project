@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add comment</title>
     <link rel="stylesheet" href="{% static 'decode_blogs/css/header.css' %}">
-    <link rel="stylesheet" href="{% static 'decode_blogs/css/add-blogs.css' %}">
+    <link rel="stylesheet" href="{% static 'decode_blogs/css/add-comment.css' %}">
 </head>
 <body>
     <header>
@@ -22,9 +22,20 @@
             </form> 
         </div>
 
+        <div class="header-div-2">
+            <a href="{% url 'decode_authe:signout' %}" class="button-reg">Signout</a>  
+            {% if user.image %}
+                <a href="{% url 'decode_authe:profile'%}"><img src="{{ user.image.url }}" alt="" id="header-img"></a>
+            {% else %}
+                <a href="{% url 'decode_authe:profile'%}"><img src="{% static 'decode_blogs/images/User.png' %}" alt=""></a>
+            {% endif %}
+        </div>
+    </header>
+    <hr>
+
 
     <section class="main">
-        <form action="{% url 'decode_blogs:cmadd' %}" method="POST" enctype="multipart/form-data"> 
+        <form action="{% url 'decode_blogs:cmadd' %}" method="POST" enctype="multipart/form-data" class="form"> 
             {% csrf_token %}   <!--Специалынй токен -->
             {{ form.as_p }}
             <button type="submit">Сохранить</button>

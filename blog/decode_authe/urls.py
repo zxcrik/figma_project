@@ -11,6 +11,7 @@ urlpatterns = [
     path('signin/',views.SignInUser.as_view() ,name='signin'),
     path('signout/',views.signout_user , name='signout'),
     path('profile/', views.profile, name='profile'),
+    path('edit-profile/', views.edit_profile, name='edit_profile'),
 
 
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),

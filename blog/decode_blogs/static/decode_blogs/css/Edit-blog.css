@@ -57,7 +57,7 @@ p select {
     font-weight: 700;
     cursor: pointer;
     background-color: rgb(23, 23, 218);
-    height: 60px;
+    height: 40px;
 }
 
 .form .helptext,

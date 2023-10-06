@@ -4,10 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration</title>
+    <title>Edit profile</title>
     <link rel="stylesheet" href="{% static 'decode_authe/css/header.css' %}">
     <link rel="stylesheet" href="{% static 'decode_authe/css/authe.css' %}">
-
 </head>
 <body>
     <header>
@@ -23,21 +22,24 @@
             </form> 
         </div>
 
-    
         <div class="header-div-2">
-            <a href="{% url 'decode_authe:signin' %}" class="button-reg">SignIn</a>
             <a href="{% url 'decode_blogs:home' %}" class="button-reg">Home</a>
+            <a href="{% url 'decode_authe:signout' %}" class="button-reg">Signout</a>
+            {% if user.image %}
+                <a href="{% url 'decode_authe:profile'%}"><img src="{{ user.image.url }}" alt="" id="header-img"></a>
+            {% else %}
+                <a href="{% url 'decode_authe:profile'%}"><img src="{% static 'decode_blogs/images/User.png' %}" alt=""></a>
+            {% endif %}
         </div>
     </header>
     <hr id="hr-line">
 
-
     <section class="authe-main">
-        <h1>Регистрация</h1>
-        <form action="" method="POST" class="authe-form" enctype="multipart/form-data">
+        <h1>Редактирование профиля</h1>
+        <form method="post" class="authe-form" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Зарегистрироваться</button>
+            <button type="submit">Сохранить</button>
         </form>
     </section>
 </body>

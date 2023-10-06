@@ -8,12 +8,12 @@
 
 .main {
     padding: 50px 8%;
-    display: block;
+    display: flex;
     justify-content: center;
+    gap: 15px;
 }
 
 .form {
-    width: 40%;
     display: flex;
     flex-direction: column;
 }
@@ -21,6 +21,7 @@
 .form p {
     display: flex;
     flex-direction: column;
+    height: 50px;
     margin-bottom: 15px;
 }
 
@@ -40,7 +41,7 @@
 }
 
 .form p textarea {
-    resize: none;
+    height: 80px;
 }
 
 .form button {
@@ -49,7 +50,9 @@
     font-size: 16px;
     font-weight: 700px;
     cursor: pointer;
+    margin-top: 10px;
 }
+
 
 p {
     height: 0px;
@@ -60,3 +63,4 @@ p {
     justify-content: center;
     height: 400px;
 }
+

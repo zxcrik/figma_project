@@ -5,6 +5,7 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import logout, login
 from django.views.generic.edit import FormView
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from rest_framework.generics import RetrieveAPIView
 from rest_framework.response import Response
@@ -54,6 +55,7 @@ class SignInUser(LoginView):
         return reverse_lazy('decode_blogs:home')
 
 
+
 class UserDetailAPIView(RetrieveAPIView):
     def get_queryset(self):
         return User.objects.get(id=self.request.user.id)
@@ -91,3 +93,16 @@ def profile(request):
         'user_blogs': user_blogs,   # Передаем отфильтрованные блоги
     }
     return render(request, 'decode_authe/profile.html', context=data)
+
+
+@login_required             # Только зарегистрированные user-ы #
+def edit_profile(request):
+    if request.method == 'POST':
+        form = EditProfileForm(request.POST, instance=request.user) # использование данных user-a для редактирования #
+        if form.is_valid():
+            form.save()
+            return redirect('decode_authe:profile')  
+    else:
+        form = EditProfileForm(instance=request.user)
+    
+    return render(request, 'decode_authe/edit-profile.html', {'form': form})

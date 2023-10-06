@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Blog</title>
     <link rel="stylesheet" href="{% static 'decode_blogs/css/header.css' %}">
-    <link rel="stylesheet" href="{% static 'decode_blogs/css/add-blogs.css' %}">
+    <link rel="stylesheet" href="{% static 'decode_blogs/css/Edit-blog.css' %}">
 </head>
 <body>
     <header>
@@ -25,7 +25,11 @@
         <div class="header-div-2">
             <a href="{% url 'decode_blogs:home' %}" class="button-reg">Home</a>
             <a href="{% url 'decode_authe:signout' %}" class="button-reg">Signout</a>
-            <a href="{% url 'decode_authe:profile'%}"><img src="{{ user.image.url }}" alt="" id="header-img"></a>
+            {% if user.image %}
+                <a href="{% url 'decode_authe:profile'%}"><img src="{{ user.image.url }}" alt="" id="header-img"></a>
+            {% else %}
+                <a href="{% url 'decode_authe:profile'%}"><img src="{% static 'decode_blogs/images/User.png' %}" alt=""></a>
+            {% endif %}
 
         </div>
 
@@ -33,10 +37,10 @@
     <hr id="hr-line">
 
     <section class="main">
-        <form action="{% url 'decode_blogs:add' %}" method="POST" enctype="multipart/form-data"> 
+        <form action="{% url 'decode_blogs:add' %}" method="POST" enctype="multipart/form-data" class="form"> 
             {% csrf_token %}   <!--Специалынй токен -->
             {{ form.as_p }}
-            <button type="submit">Сохранить</button>
+            <button type="submit" class="button">Сохранить</button>
     </section>
 
 </body>

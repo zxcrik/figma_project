@@ -28,7 +28,11 @@
             {% if request.user.is_authenticated %}
                 <a href="{% url 'decode_blogs:home' %}" class="button-reg">Home</a>
                 <a href="{% url 'decode_authe:signout' %}" class="button-reg">Signout</a>
-                <a href="{% url 'decode_authe:profile'%}"><img src="{{ user.image.url }}" alt="" id="header-img"></a>
+                {% if user.image %}
+                    <a href="{% url 'decode_authe:profile'%}"><img src="{{ user.image.url }}" alt="" id="header-img"></a>
+                {% else %}
+                    <a href="{% url 'decode_authe:profile'%}"><img src="{% static 'decode_blogs/images/User.png' %}" alt=""></a>
+                {% endif %}
 
             {% else %}
                 <a href="{% url 'decode_authe:signin' %}">SignIn</a>

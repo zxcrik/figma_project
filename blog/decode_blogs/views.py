@@ -111,7 +111,6 @@ def profile(request):
 
 class BlogSearchView(View):
     template_name = 'decode_blogs/Home.html'
-    print('abc')
 
     def post(self, request):
         form = BlogSearchForm(request.POST)
@@ -199,9 +198,16 @@ class BlogDetailAPIView(RetrieveUpdateDestroyAPIView):
     serializer_class = BlogSerializer
     permission_classes = (IsOwnerOrReadOnly,) 
 
+
+
+class CommentListAPIView(ListCreateAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    permission_classes = (IsAdminOrReadOnly,)
+
 class CommentDetailAPIView(RetrieveUpdateDestroyAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
-    permission_classes = (IsOwnerOrReadOnly,) 
+    permission_classes = (IsAdminOrReadOnly,) 
 
 
