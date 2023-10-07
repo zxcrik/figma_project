@@ -98,7 +98,7 @@ def profile(request):
 @login_required             # Только зарегистрированные user-ы #
 def edit_profile(request):
     if request.method == 'POST':
-        form = EditProfileForm(request.POST, instance=request.user) # использование данных user-a для редактирования #
+        form = EditProfileForm(request.POST, request.FILES, instance=request.user) # использование данных user-a для редактирования #
         if form.is_valid():
             form.save()
             return redirect('decode_authe:profile')  

@@ -73,6 +73,10 @@
         </span>
         <div class="profile-info">
             <p>
+                <span>{{ user.username }}</span>
+            </p>
+
+            <p>
                 <span>{{ user.first_name }}</span>
             </p>
 
@@ -87,8 +91,8 @@
 
         {% if request.user.is_authenticated %}
             <div class="admin-links">
-                <a href="{% url 'decode_blogs:add' %}" class="blog-button"> Добавить новый блог</a>
                 <a href="{% url 'decode_authe:edit_profile' %}" class="blog-button">Редактировать профиль</a>      
+                <a href="{% url 'decode_blogs:add' %}" class="blog-button"> Добавить новый блог</a>
             </div>
         {% endif %}
     </section>
